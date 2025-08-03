@@ -17,8 +17,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const handleLogout = () => {
-    // For now, just navigate to a blank page
-    navigate('/logout');
+    // Redirect to your backend logout endpoint
+    window.location.href = 'http://localhost:3001/logout';
   };
 
   const getButtonVariant = (path: string) => {
@@ -33,7 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <h1 className="text-2xl font-bold text-primary mb-2">Skill Bridge</h1>
           <p className="text-sm text-muted-foreground">Professional Job Matching Platform</p>
         </div>
-        
+
         <div className="space-y-3">
           <Button
             variant={getButtonVariant('/qualifications')}
@@ -43,7 +43,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <UserPlus className="mr-2 h-4 w-4" />
             Add Qualifications
           </Button>
-          
+
           <Button
             variant={getButtonVariant('/post-job')}
             className="w-full justify-start"
@@ -52,7 +52,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Briefcase className="mr-2 h-4 w-4" />
             Post Job Vacancies
           </Button>
-          
+
           <Button
             variant="outline"
             className="w-full justify-start text-destructive hover:text-destructive"

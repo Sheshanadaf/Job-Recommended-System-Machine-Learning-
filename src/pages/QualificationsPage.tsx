@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Upload, FileText, ArrowLeft, Plus } from 'lucide-react';
-import { toast } from '@/components/ui/use-toast';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Upload, FileText, ArrowLeft, Plus } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
 const QualificationsPage: React.FC = () => {
   const navigate = useNavigate();
@@ -22,25 +22,67 @@ const QualificationsPage: React.FC = () => {
     }
   };
 
-  const handleCVSubmit = () => {
+  // const handleCVSubmit = () => {
+  //   if (!selectedFile) {
+  //     toast({
+  //       title: "No file selected",
+  //       description: "Please upload a CV before submitting.",
+  //       variant: "destructive"
+  //     });
+  //     return;
+  //   }
+  //   // Navigate to loading/blank page as requested
+  //   navigate('/job-matching');
+  // };
+
+  const handleCVSubmit = async () => {
     if (!selectedFile) {
       toast({
         title: "No file selected",
         description: "Please upload a CV before submitting.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
-    // Navigate to loading/blank page as requested
-    navigate('/job-matching');
+
+    const formData = new FormData();
+    formData.append("cv", selectedFile);
+
+    try {
+      const response = await fetch(
+        "https://8631a6e8-07a3-4731-abdc-7a644862e9a5.mock.pstmn.io/api/upload-cv",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      if (!response.ok) throw new Error("Failed to upload CV");
+
+      const result = await response.json();
+
+      toast({
+        title: "Upload Successful",
+        description: result.message || "Your CV was uploaded successfully.",
+      });
+
+      navigate(result.matchingRoute);
+    } catch (error) {
+      console.error("Upload error:", error);
+      toast({
+        title: "Upload Failed",
+        description: "An error occurred while uploading your CV.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleManualEntry = () => {
-    navigate('/qualifications-form');
+    navigate("/qualifications-form");
   };
 
   const handleBack = () => {
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -48,8 +90,12 @@ const QualificationsPage: React.FC = () => {
       <div className="flex-1 p-8">
         <div className="max-w-4xl mx-auto h-full">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-foreground mb-2">Add Your Qualifications</h1>
-            <p className="text-muted-foreground">Choose how you'd like to share your professional background</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">
+              Add Your Qualifications
+            </h1>
+            <p className="text-muted-foreground">
+              Choose how you'd like to share your professional background
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-3/5">
@@ -63,9 +109,10 @@ const QualificationsPage: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <p className="text-muted-foreground">
-                  Upload your existing CV and let our system analyze your qualifications automatically.
+                  Upload your existing CV and let our system analyze your
+                  qualifications automatically.
                 </p>
-                
+
                 <div className="border-2 border-dashed border-muted rounded-lg p-8 text-center">
                   <Input
                     type="file"
@@ -79,7 +126,9 @@ const QualificationsPage: React.FC = () => {
                       <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
                       <div>
                         <p className="font-medium">Click to upload your CV</p>
-                        <p className="text-sm text-muted-foreground">PDF, DOC, or DOCX files only</p>
+                        <p className="text-sm text-muted-foreground">
+                          PDF, DOC, or DOCX files only
+                        </p>
                       </div>
                     </div>
                   </Label>
@@ -105,9 +154,10 @@ const QualificationsPage: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <p className="text-muted-foreground">
-                  Prefer to enter your information manually? Fill out a detailed form with all your qualifications.
+                  Prefer to enter your information manually? Fill out a detailed
+                  form with all your qualifications.
                 </p>
-                
+
                 <div className="space-y-4">
                   <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
                     <div>• Personal Information</div>
@@ -140,7 +190,7 @@ const QualificationsPage: React.FC = () => {
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Button>
-            
+
             <Button onClick={handleCVSubmit} size="lg">
               Submit
             </Button>

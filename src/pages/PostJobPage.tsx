@@ -25,45 +25,57 @@ const PostJobPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = () => {
-    // Validate form
-    const requiredFields = ['jobRole', 'company', 'category', 'location', 'description'];
-    const emptyFields = requiredFields.filter(field => !formData[field as keyof typeof formData].trim());
+const handleSubmit = async () => {
+  const requiredFields = ['jobRole', 'company', 'category', 'location', 'description'];
+  const emptyFields = requiredFields.filter(field => !formData[field as keyof typeof formData].trim());
 
-    if (emptyFields.length > 0) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields before submitting.",
-        variant: "destructive"
-      });
-      return;
-    }
+  if (emptyFields.length > 0) {
+    toast({
+      title: "Missing Information",
+      description: "Please fill in all required fields before submitting.",
+      variant: "destructive"
+    });
+    return;
+  }
 
-    // Create job object
-    const newJob = {
-      id: Date.now().toString(),
-      title: formData.jobRole,
-      company: formData.company,
-      category: formData.category,
-      location: formData.location,
-      description: formData.description,
-      postedDate: new Date().toLocaleDateString()
-    };
+  const jobPayload = {
+    title: formData.jobRole,
+    company: formData.company,
+    category: formData.category,
+    location: formData.location,
+    description: formData.description,
+    postedDate: new Date().toLocaleDateString()
+  };
 
-    // Save to localStorage
-    const existingJobs = localStorage.getItem('skillBridgeJobs');
-    const jobs = existingJobs ? JSON.parse(existingJobs) : [];
-    jobs.push(newJob);
-    localStorage.setItem('skillBridgeJobs', JSON.stringify(jobs));
+  try {
+    const response = await fetch("https://8631a6e8-07a3-4731-abdc-7a644862e9a5.mock.pstmn.io/api/post-job", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(jobPayload)
+    });
+
+    if (!response.ok) throw new Error("Failed to post job");
+
+    const data = await response.json();
 
     toast({
       title: "Job Posted Successfully",
-      description: "Your job vacancy has been posted and is now visible on the home page.",
+      description: data.message,
     });
 
-    // Navigate back to home page
     navigate('/');
-  };
+  } catch (error) {
+    console.error("Error posting job:", error);
+    toast({
+      title: "Submission Failed",
+      description: "There was a problem submitting the job.",
+      variant: "destructive"
+    });
+  }
+};
+
 
   const handleBack = () => {
     navigate('/');
