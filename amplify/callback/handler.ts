@@ -32,7 +32,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return {
       statusCode: 302,
       headers: {
-        Location: 'http://localhost:3000/home',
+        Location: 'https://frontend.d3kca8kpvd2vf.amplifyapp.com/home',
         'Set-Cookie': `userInfo=${encodeURIComponent(JSON.stringify(userInfo))}; Path=/; HttpOnly`,
       },
       body: '',
@@ -42,7 +42,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return {
       statusCode: 302,
       headers: {
-        Location: 'http://localhost:3000',
+        Location: 'https://frontend.d3kca8kpvd2vf.amplifyapp.com/',
       },
       body: '',
     };
