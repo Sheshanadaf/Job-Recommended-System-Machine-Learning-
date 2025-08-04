@@ -1,0 +1,34 @@
+{
+  "version": "45.0.0",
+  "files": {
+    "375966343cb0a9b71599c1467400ef9f3c76dc388127fe5e11e8f72208e7f8bd": {
+      "displayName": "function Nested Stack Template",
+      "source": {
+        "path": "amplifyvitereactshadcntssheshsandbox2a721a3117function418372FE.nested.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-4a282524": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "375966343cb0a9b71599c1467400ef9f3c76dc388127fe5e11e8f72208e7f8bd.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    },
+    "8c882526f749daf8a4bb4d21a4af3e3ebd0ddd6f5c4baba0fe63184866bfc995": {
+      "displayName": "amplify-vitereactshadcnts-shesh-sandbox-2a721a3117 Template",
+      "source": {
+        "path": "amplify-vitereactshadcnts-shesh-sandbox-2a721a3117.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "current_account-current_region-9a80a7d5": {
+          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
+          "objectKey": "8c882526f749daf8a4bb4d21a4af3e3ebd0ddd6f5c4baba0fe63184866bfc995.json",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
