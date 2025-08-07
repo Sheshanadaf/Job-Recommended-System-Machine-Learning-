@@ -68,7 +68,25 @@ const QualificationsPage: React.FC = () => {
         description: result.message || "Your CV was uploaded successfully.",
       });
 
-      navigate(result.matchingRoute);
+      // ✅ Background API call (non-blocking)
+      fetch(`http://localhost:3001/api/read-user-profile/${id}`, {
+        method: "GET",
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          console.log("Background prediction result:", result);
+          // Optionally: store it
+          // localStorage.setItem("predictionResult", JSON.stringify(data));
+          // Or: toast({
+          //   title: "Prediction Ready",
+          //   description: data.predictedCategory || "Check your dashboard",
+          // });
+        })
+        .catch((err) => {
+          console.error("Background prediction error:", err);
+        });
+        
+      navigate("/home");
     } catch (error) {
       console.error("Upload error:", error);
       toast({
