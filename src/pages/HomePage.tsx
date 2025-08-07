@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaBriefcase } from "react-icons/fa";
 
 const HomePage = () => {
-  // get job past details
+  // get job past detailss
   const [jobdetailsData, setjobdetailstData] = useState([]);
 
   const fetchStudentData = async () => {
