@@ -43,7 +43,7 @@ This project uses two branches in GitHub:
 
 ## 🖼️ Architecture Diagram
 
-![Architecture Diagram](https://i.imgur.com/ZJ4WgK3.png)
+![Architecture Diagram](docs/a.png)
 
 ---
 
