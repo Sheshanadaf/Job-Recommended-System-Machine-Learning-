@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { UserPlus, Briefcase, LogOut } from 'lucide-react';
+import { UserPlus, Briefcase, LogOut, BarChart2 } from 'lucide-react'; // ✅ Import an icon
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,7 +17,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   };
 
   const handleLogout = () => {
-    // Redirect to your backend logout endpoint
     window.location.href = 'http://localhost:3001/logout';
   };
 
@@ -51,6 +50,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           >
             <Briefcase className="mr-2 h-4 w-4" />
             Post Job Vacancies
+          </Button>
+
+          {/* ✅ NEW: View Result Button */}
+          <Button
+            variant={getButtonVariant('/result')}
+            className="w-full justify-start"
+            onClick={() => handleNavigation('/result')}
+          >
+            <BarChart2 className="mr-2 h-4 w-4" />
+            View Result
           </Button>
 
           <Button

@@ -39,16 +39,16 @@ const handleSubmit = async () => {
   }
 
   const jobPayload = {
-    title: formData.jobRole,
+    jobroles: formData.jobRole,
     company: formData.company,
     category: formData.category,
     location: formData.location,
-    description: formData.description,
+    jobdescription: formData.description,
     postedDate: new Date().toLocaleDateString()
   };
 
   try {
-    const response = await fetch("https://8631a6e8-07a3-4731-abdc-7a644862e9a5.mock.pstmn.io/api/post-job", {
+    const response = await fetch("http://localhost:3001/api/add-jobpost", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -65,7 +65,7 @@ const handleSubmit = async () => {
       description: data.message,
     });
 
-    navigate('/');
+    navigate('/home');
   } catch (error) {
     console.error("Error posting job:", error);
     toast({

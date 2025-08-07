@@ -1,154 +1,88 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { MapPin, Building, Clock } from "lucide-react";
-import LoadingPage from "./LoadingPage";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaBriefcase } from "react-icons/fa";
 
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-  category: string;
-  location: string;
-  description: string;
-  postedDate: string;
-}
+const HomePage = () => {
+  // get job past details
+  const [jobdetailsData, setjobdetailstData] = useState([]);
 
-const HomePage: React.FC = () => {
-  const navigate = useNavigate();
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [stats, setStats] = useState({ totalJobs: 0, totalCompanies: 0, totalProfessionals: 0 });
-  const [loading, setLoading] = useState(true);
-
-useEffect(() => {
-  const fetchJobs = async () => {
-    const response = await fetch(
-      "https://4ca3fbd2-5bc8-4f19-a1bc-af755fdc7323.mock.pstmn.io/api/jobs"
-    );
-    if (!response.ok) throw new Error("Failed to fetch jobs");
-    return response.json();
-  };
-
-  const fetchStats = async () => {
-    const response = await fetch(
-      "https://4ca3fbd2-5bc8-4f19-a1bc-af755fdc7323.mock.pstmn.io/api/stats"
-    );
-    if (!response.ok) throw new Error("Failed to fetch stats");
-    return response.json();
-  };
-
-  const loadData = async () => {
+  const fetchStudentData = async () => {
     try {
-      const [jobsData, statsData] = await Promise.all([fetchJobs(), fetchStats()]);
-      setJobs(jobsData);
-      setStats(statsData);
+      const res = await axios.get(`http://localhost:3001/api/get-jobpost`);
+      console.log("Job Details", res.data);
+      setjobdetailstData(res.data.jobPostsFormatted);
     } catch (error) {
       console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  loadData();
-}, []);
-
-
-  const handleJobClick = () => {
-    // Navigate to loading page as requested
-    navigate("/job-details");
-  };
-
-    if (loading) {
-    return <LoadingPage title="Loading Job Listings" message="Please wait while we fetch the latest job opportunities..." />;
-  }
+  useEffect(() => {
+    fetchStudentData();
+  }, []);
 
   return (
-    <div className="flex flex-col h-screen">
-      {/* Platform Information - Upper 2/5 */}
-      <div className="h-2/5 bg-gradient-to-r from-primary/10 to-blue-50 p-8">
-        <div className="max-w-4xl mx-auto h-full flex items-center">
-          <div className="space-y-6">
-            <div>
-              <h1 className="text-4xl font-bold text-foreground mb-4">
-                Welcome to Skill Bridge
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Connect your skills with the perfect career opportunities. Our
-                platform bridges the gap between talented professionals and
-                employers seeking the right expertise.
-              </p>
-            </div>
-            <div className="grid grid-cols-3 gap-6">
-              <div className="text-center">
-                <h3 className="text-2xl font-semibold text-primary">{stats.totalJobs}+</h3>
-                <p className="text-sm text-muted-foreground">Active Jobs</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-2xl font-semibold text-primary">{stats.totalCompanies}+</h3>
-                <p className="text-sm text-muted-foreground">Companies</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-2xl font-semibold text-primary">{stats.totalProfessionals}+</h3>
-                <p className="text-sm text-muted-foreground">Professionals</p>
-              </div>
-            </div>
-          </div>
+    <div className="flex-1 p-15 flex flex-col items-center justify-center text-center">
+      <h1 className="text-5xl font-extrabold mb-6 text-blue-700">
+        Welcome to Skill Bridge
+      </h1>
+      <p className="text-gray-600 text-lg mb-10 max-w-xl">
+        Connect your skills with the perfect career opportunities.
+      </p>
+
+      <div className="flex gap-10 justify-center mb-16">
+        <div>
+          <strong className="text-2xl text-green-600">1000+</strong>
+          <p className="text-sm mt-1">Active Jobs</p>
+        </div>
+        <div>
+          <strong className="text-2xl text-purple-600">500+</strong>
+          <p className="text-sm mt-1">Companies</p>
+        </div>
+        <div>
+          <strong className="text-2xl text-red-500">2000+</strong>
+          <p className="text-sm mt-1">Professionals</p>
         </div>
       </div>
 
-      {/* Available Jobs - Lower 3/5 */}
-      <div className="h-3/5 p-8">
-        <div className="max-w-4xl mx-auto h-full">
-          <h2 className="text-2xl font-semibold text-foreground mb-6">
-            Available Job Opportunities
-          </h2>
-
-          <div className="h-full overflow-y-auto space-y-4 pr-2">
-            {jobs.length === 0 ? (
-              <Card className="p-8 text-center">
-                <CardContent>
-                  <p className="text-muted-foreground text-lg">
-                    No jobs posted yet. Use "Post Job Vacancies" to add new
-                    opportunities.
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              jobs.map((job) => (
-                <Card
-                  key={job.id}
-                  className="cursor-pointer hover:shadow-md transition-shadow duration-200"
-                  onClick={handleJobClick}
-                >
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-lg">{job.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <div className="flex items-center">
-                        <Building className="mr-1 h-4 w-4" />
-                        {job.company}
-                      </div>
-                      <div className="flex items-center">
-                        <MapPin className="mr-1 h-4 w-4" />
-                        {job.location}
-                      </div>
-                      <div className="flex items-center">
-                        <Clock className="mr-1 h-4 w-4" />
-                        {job.postedDate}
-                      </div>
-                    </div>
-                    <Badge variant="secondary">{job.category}</Badge>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {job.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))
-            )}
-          </div>
+      <div className="w-full border-t border-gray-300 pt-8 mt-8">
+        <div className="flex items-center justify-center gap-2 text-blue-800 text-xl font-semibold">
+          <FaBriefcase className="text-2xl" />
+          <span>Available Job Posts</span>
         </div>
+        <p className="text-gray-500 text-sm mt-2">
+          Browse exciting opportunities posted by top companies.
+        </p>
+
+        {/* Job Posts */}
+        {/* Job Posts */}
+        {jobdetailsData.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 mt-6">
+            {jobdetailsData.map((job) => (
+              <div
+                key={job._id}
+                className="border border-gray-200 rounded-lg p-5 shadow-md text-left"
+              >
+                <h3 className="text-xl font-semibold text-blue-700 mb-2">
+                  {job.jobroles}
+                </h3>
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Company:</strong> {job.company}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Category:</strong> {job.category}
+                </p>
+                <p className="text-sm text-gray-600 mb-1">
+                  <strong>Location:</strong> {job.location}
+                </p>
+                <p className="text-sm text-gray-700 mt-2">
+                  {job.jobdescription}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-sm mt-6">Nothing to display.</p>
+        )}
       </div>
     </div>
   );

@@ -8,6 +8,7 @@ import { Upload, FileText, ArrowLeft, Plus } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 
 const QualificationsPage: React.FC = () => {
+  const id = localStorage.getItem("userSub");
   const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -46,11 +47,12 @@ const QualificationsPage: React.FC = () => {
     }
 
     const formData = new FormData();
-    formData.append("cv", selectedFile);
+    formData.append("cv_files", selectedFile);
+    console.log(formData);
 
     try {
       const response = await fetch(
-        "https://8631a6e8-07a3-4731-abdc-7a644862e9a5.mock.pstmn.io/api/upload-cv",
+        `http://localhost:3001/api/add-userprofile/${id}`,
         {
           method: "POST",
           body: formData,
@@ -82,7 +84,7 @@ const QualificationsPage: React.FC = () => {
   };
 
   const handleBack = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (

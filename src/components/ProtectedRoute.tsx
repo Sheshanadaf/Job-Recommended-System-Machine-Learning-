@@ -17,6 +17,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
         const res = await axios.get("http://localhost:3001/api/user", { withCredentials: true });
         if (res.data.authenticated) {
           setIsAuthenticated(true);
+
+          // Save res.data.sub to localStorage
+            localStorage.setItem("userSub", res.data.user.sub);
+          
+
         } else {
           navigate("/", { replace: true });
         }
