@@ -11,7 +11,7 @@ router.get("/get-jobpost", manageJobPost.getjobpostdetails);
 
 // user profile Details
 router.post(
-  "/add-userprofile",
+  "/add-userprofile/:id",
   upload.single("cv_files"),
   manageUserProfileDetails.createCvData
 );
@@ -20,6 +20,12 @@ router.post(
 router.get(
   "/read-user-profile/:id",
   manageUserProfileDetails.getUserProfileDetails
+);
+
+// Read predict details
+router.get(
+  "/read-predict-details/:id",
+  manageUserProfileDetails.getPredictDetails
 );
 
 module.exports = router;

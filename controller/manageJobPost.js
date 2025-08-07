@@ -37,6 +37,9 @@ const manageJobPost = {
         jobdescription,
         // skill,
       });
+
+      console.log(newJobPost);
+      
       const saveJobPost = await newJobPost.save();
       res.status(201).json({
         message: "Job post created successfully.",

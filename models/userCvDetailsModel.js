@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userProfileSchema = new mongoose.Schema({
+  id: { type: String},
   fileName: { type: String, default: null },
   fileType: { type: String, default: null },
   filePath: { type: String, default: null },
