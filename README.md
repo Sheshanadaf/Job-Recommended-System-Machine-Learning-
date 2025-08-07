@@ -1,74 +1,118 @@
-## SkillBridge Demo
-This repository contains the frontend demo for the SkillBridge job recommendation system. It showcases an interactive user interface designed to help users discover relevant job opportunities based on skills, preferences, and profile data.
 
-## Project Overview:
-The goal of this project is to demonstrate the job matching algorithm through a responsive and modern web interface. It includes dynamic components, reusable UI elements, and smooth navigation for an optimal user experience.
+# 💼 Job Recommendation System using Machine Learning
 
-## Tech Stack:
-This project is built with the following modern technologies:
+This is a full-stack Job Recommendation System that predicts the top 5 job matches for a user based on their social media activity and compares it with current job postings. It uses machine learning to recommend the most suitable jobs.
 
-1. React – A JavaScript library for building user interfaces
-2. TypeScript – Strongly-typed JavaScript for scalable, maintainable code
-3. Vite – Fast and lightweight development server and build tool
-4. Tailwind CSS – Utility-first CSS framework for responsive design
-5. shadcn/ui – Beautifully designed React components built with Radix UI and Tailwind
+## 🔧 Tech Stack
 
-## Getting Started:
+- **Frontend**: React (TypeScript)
+- **Backend**: Node.js (Express)
+- **Machine Learning**: Python
+- **Authentication**: AWS Cognito
+- **Database**: MongoDB (Atlas)
 
-To run the project locally, ensure you have Node.js and npm installed. Then follow the steps below:
+🔗 **GitHub Repo**: [Job-Recommended-System-Machine-Learning-](https://github.com/Sheshanadaf/Job-Recommended-System-Machine-Learning-)
 
-1. Clone the repository
+---
 
-git clone <https://github.com/dininduabey/updated-SkillBridge-LandingPage.git>
+## ⚙️ Features
 
-2. Navigate into the project directory
+- 🔐 Secure user authentication using AWS Cognito
+- 🤖 Predicts matching jobs using ML
+- 📄 Compares user profile with job postings
+- 🧠 ML model trained on social media activity and job description data
+- 📊 Returns **top 5 job recommendations**
 
-cd skillbridge-demo
+---
 
-3. Install dependencies
+## 🗂️ Project Structure
 
-npm install
+This project uses two branches in GitHub:
 
-4. Start the development server
+- `frontend1` – React (TypeScript) frontend
+- `backend` – Node.js backend and ML integration
+
+```bash
+📁 Job-Recommended-System-Machine-Learning-/
+├── frontend/                 # React (TypeScript) frontend (in `frontend1` branch)
+├── backend/                  # Node.js backend (in `backend` branch)
+
 ```
-npm run dev
-```
-The development server will start with auto-reloading and a local preview, usually available at http://localhost:3000
 
-Deployment:
-This project can be deployed on any modern frontend hosting platform such as:
+---
 
-1. Vercel
-2. Netlify
-3. Render
-4. GitHub Pages (with Vite config adjustments)
-5. Make sure to build the project before deploying:
-```
-npm run build
-```
-Custom Domain Setup:
-To set up a custom domain, refer to your hosting provider’s documentation. Typically, this involves:
+## 🖼️ Architecture Diagram
 
-1. Adding a custom domain in the host dashboard
-2. Configuring DNS records (e.g., A or CNAME)
-3. Verifying ownership
+![Architecture Diagram](https://i.imgur.com/ZJ4WgK3.png)
 
-📁 Project Structure:
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Sheshanadaf/Job-Recommended-System-Machine-Learning-.git
 ```
-skillbridge-demo/
-├── public/ # Static assets
-├── src/ # Main source code
-│ ├── components/ # Reusable UI components
-│ ├── pages/ # Page-level components
-│ ├── utils/ # Helper functions
-│ └── main.tsx # Entry point
-├── index.html
-├── tailwind.config.ts
-└── vite.config.ts
+
+---
+
+### 2️⃣ Setup Backend
+
+```bash
+git checkout backend       # Switch to backend branch
+cd backend                 # Go to backend folder
+touch .env                 # Create environment file
 ```
-💡 Features:
-1. Real-time job recommendations
-2. Search and filtering functionality
-3. Clean, responsive UI
-4. Modular code structure
-5. Fast development with hot reloading
+
+#### ✏️ Add the following to `.env`:
+
+```
+MONGO_URI=your_mongodb_connection_string
+```
+
+```bash
+npm install                # Install dependencies
+node index.js              # Start backend server
+```
+
+---
+
+### 3️⃣ Setup Frontend
+
+```bash
+git checkout frontend1     # Switch to frontend branch
+cd frontend                # Go to frontend folder
+npm install                # Install dependencies
+npm run dev                # Start frontend app
+```
+
+---
+
+### 4️⃣ Run the Machine Learning Model (if needed separately)
+
+```bash
+cd backend/model
+python model.py
+```
+
+---
+
+## 📌 Requirements
+
+- Node.js and npm
+- Python 3.x
+- MongoDB Atlas account
+- AWS account with Cognito setup
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 👨‍💻 Author
+
+- [Sheshan Hebron](https://github.com/Sheshanadaf)
